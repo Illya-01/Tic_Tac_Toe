@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+   <title>Хрестики-Нулики</title>
+
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Finger+Paint&display=swap" rel="stylesheet">
+   <link rel="shortcut icon" href="img/favicon_yellow.png" type="image/x-icon">
+
+   <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+
+<body>
+   <h1>Хрестики-Нулики</h1>
+
+   <div>
+      <button id="mode-computer" class="btn">Грати з комп'ютером</button>
+      <button id="mode-friend" class="btn">Грати з другом</button>
+   </div>
+
+   <div class="gameboard">
+      <div class="cell"></div>
+      <div class="cell"></div>
+      <div class="cell"></div>
+      <div class="cell"></div>
+      <div class="cell"></div>
+      <div class="cell"></div>
+      <div class="cell"></div>
+      <div class="cell"></div>
+      <div class="cell"></div>
+   </div>
+
+
+   <div class="score">
+      <div id="result"></div>
+      <p>X: <span id="scoreX">_</span></p>
+      <p>O: <span id="scoreO">_</span></p>
+   </div>
+
+   <div>
+      <button id="resetGameBtn" class="btn">Очистити</button>
+   </div>
+
+
+   <script src="js/gameBoard.js"></script>
+   <script src="js/displayController.js"></script>
+   <script src="js/gameLogic.js"></script>
+   <script src="js/main.js"></script>
+</body>
+
+</html>
