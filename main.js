@@ -1,3 +1,5 @@
+import * as gameLogic from './modules/gameLogic'
+
 const cells = document.querySelectorAll('.cell')
 const resetBtn = document.querySelector('#resetGameBtn')
 const modeCompBtn = document.querySelector('#mode-computer')
