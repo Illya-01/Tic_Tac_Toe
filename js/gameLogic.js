@@ -5,18 +5,35 @@ const gameLogic = (() => {
     let gameEnded = false
     let mode = ''
 
+    /**
+     * Sets the game mode.
+     * @param {string} gameMode - The game mode ('computer', 'player').
+     */
     const setMode = gameMode => {
         mode = gameMode
     }
 
+    /**
+     * Switches the current player.
+     */
     const switchPlayer = () => {
         currentPlayerSign = currentPlayerSign === 'X' ? 'O' : 'X'
+
+        if (mode === 'computer' && currentPlayerSign === 'O') {
+            makeComputerMove()
+        }
     }
 
+    /**
+     * Makes a move on the game board.
+     * @param {number} cellPosition - The position of the cell to make a move.
+     */
     const makeMove = cellPosition => {
-        if (!gameEnded && gameBoard.updateBoard(cellPosition, currentPlayerSign)) {
-            displayController.renderBoard()
-            if (checkWin()) {
+        gameBoard.modifyCell(cellPosition, currentPlayerSign)
+
+        if (!gameEnded && gameBoard.isEmptyCell(cellPosition)) {
+            displayController.displayBoard()
+            if (isWin()) {
                 endGame(`${currentPlayerSign} переміг!`)
                 updateScore()
                 return
@@ -26,13 +43,12 @@ const gameLogic = (() => {
                 return
             }
             switchPlayer()
-
-            if (mode === 'computer' && currentPlayerSign === 'O') {
-                makeComputerMove()
-            }
         }
     }
 
+    /**
+     * Checks for an available cells and makes a random move.
+     */
     const makeComputerMove = () => {
         const emptyCells = []
         const board = gameBoard.getBoard()
@@ -49,7 +65,11 @@ const gameLogic = (() => {
         }
     }
 
-    const checkWin = () => {
+    /**
+     * Checks if a player has won the game.
+     * @returns {boolean} `true` if a player has won, `false` otherwise.
+     */
+    const isWin = () => {
         const board = gameBoard.getBoard()
         const winningCombinations = [
             [0, 1, 2], // 1st row
@@ -72,6 +92,10 @@ const gameLogic = (() => {
         return false
     }
 
+    /**
+     * Checks if the game is tied (all cells are filled).
+     * @returns {boolean} `true` if the game is tied, `false` otherwise.
+     */
     const checkTie = () => {
         const board = gameBoard.getBoard()
         return board.every(cell => cell !== '')
@@ -83,24 +107,34 @@ const gameLogic = (() => {
         } else {
             scoreO++
         }
-        displayController.updateScore(currentPlayerSign, scoreX, scoreO)
+        displayController.displayUpdatedScore(currentPlayerSign, scoreX, scoreO)
     }
 
+    /**
+     * Resets the score to zero.
+     */
     const resetScore = () => {
         scoreX = scoreO = 0
         displayController.resetScore()
     }
 
+    /**
+     * Ends the game and displays the result message.
+     * @param {string} message - The result message to display.
+     */
     const endGame = message => {
         gameEnded = true
-        displayController.showResult(message)
+        displayController.displayResult(message)
     }
 
+    /**
+     * Resets the game to the initial state.
+     */
     const resetGame = () => {
         gameBoard.resetBoard()
         currentPlayerSign = 'X'
         gameEnded = false
-        displayController.renderBoard()
+        displayController.displayBoard()
     }
 
     return {

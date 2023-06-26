@@ -4,27 +4,44 @@ const displayController = (() => {
     const scoreXElement = document.querySelector('#scoreX')
     const scoreOElement = document.querySelector('#scoreO')
 
-    const renderBoard = () => {
+    /**
+     * Displays the current state of the game board on the webpage.
+     */
+    const displayBoard = () => {
         const board = gameBoard.getBoard()
         for (let i = 0; i < cells.length; i++) {
             cells[i].textContent = board[i]
         }
     }
 
-    const updateScore = (playerSign, playerXWinCount, playerOWinCount) => {
+    /**
+     * Displays the score for the specified player.
+     * @param {string} playerSign - The sign of the player ('X' or 'O').
+     * @param {number} scoreX - Score of X.
+     * @param {number} scoreO - Score of O.
+     */
+    const displayUpdatedScore = (playerSign, scoreX, scoreO) => {
         if (playerSign === 'X') {
-            scoreXElement.textContent = playerXWinCount
+            scoreXElement.textContent = scoreX
         } else {
-            scoreOElement.textContent = playerOWinCount
+            scoreOElement.textContent = scoreO
         }
     }
 
+    /**
+     * Resets the score display to initial values.
+     */
     const resetScore = () => {
         scoreXElement.textContent = '_'
         scoreOElement.textContent = '_'
     }
 
-    const showResult = (message, timeInSec = 2) => {
+    /**
+     * Displays the result message on the webpage for a specified time.
+     * @param {string} message - The message to display.
+     * @param {number} [timeInSec=2] - The time in seconds to display the message (default: 2 seconds).
+     */
+    const displayResult = (message, timeInSec = 2) => {
         resultMessage.textContent = message
         resultMessage.style.display = 'block'
 
@@ -35,9 +52,9 @@ const displayController = (() => {
     }
 
     return {
-        renderBoard,
-        updateScore,
+        displayBoard,
+        displayUpdatedScore,
         resetScore,
-        showResult,
+        displayResult,
     }
 })()
