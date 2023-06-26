@@ -29,10 +29,10 @@ const gameLogic = (() => {
      * @param {number} cellPosition - The position of the cell to make a move.
      */
     const makeMove = cellPosition => {
-        gameBoard.modifyCell(cellPosition, currentPlayerSign)
-
         if (!gameEnded && gameBoard.isEmptyCell(cellPosition)) {
+            gameBoard.modifyCell(cellPosition, currentPlayerSign)
             displayController.displayBoard()
+
             if (isWin()) {
                 endGame(`${currentPlayerSign} переміг!`)
                 updateScore()
