@@ -2,47 +2,34 @@ const gameLogic = (() => {
     let currentPlayerSign = 'X'
     let scoreX = 0
     let scoreO = 0
-    let gameEnded = false
+    let isGameOver = false
     let mode = ''
-
-    /**
-     * Sets the game mode.
-     * @param {string} gameMode - The game mode ('computer', 'player').
-     */
-    const setMode = gameMode => {
-        mode = gameMode
-    }
-
-    /**
-     * Switches the current player.
-     */
-    const switchPlayer = () => {
-        currentPlayerSign = currentPlayerSign === 'X' ? 'O' : 'X'
-
-        if (mode === 'computer' && currentPlayerSign === 'O') {
-            makeComputerMove()
-        }
-    }
 
     /**
      * Makes a move on the game board.
      * @param {number} cellPosition - The position of the cell to make a move.
      */
     const makeMove = cellPosition => {
-        if (!gameEnded && gameBoard.isEmptyCell(cellPosition)) {
-            gameBoard.modifyCell(cellPosition, currentPlayerSign)
-            displayController.displayBoard()
+        if (isGameOver || !gameBoard.isEmptyCell(cellPosition)) return
 
-            if (isWin()) {
-                endGame(`${currentPlayerSign} переміг!`)
-                updateScore()
-                return
-            }
-            if (checkTie()) {
-                endGame('Нічия!')
-                return
-            }
-            switchPlayer()
+        gameBoard.modifyCell(cellPosition, currentPlayerSign)
+        displayController.displayBoard()
+
+        if (hasWinner()) {
+            endGame(`${currentPlayerSign} переміг!`)
+            updateScore()
+            return
+        }
+        if (checkTie()) {
+            endGame('Нічия!')
+            return
+        }
+
+        switchPlayer()
+
+        // if in computer mode, let computer move next
+        if (mode === 'computer' && currentPlayerSign === 'O') {
+            makeComputerMove()
         }
     }
 
@@ -66,10 +53,25 @@ const gameLogic = (() => {
     }
 
     /**
+     * Sets the game mode.
+     * @param {string} gameMode - The game mode ('computer', 'player').
+     */
+    const setMode = gameMode => {
+        mode = gameMode
+    }
+
+    /**
+     * Switches the current player.
+     */
+    const switchPlayer = () => {
+        currentPlayerSign = currentPlayerSign === 'X' ? 'O' : 'X'
+    }
+
+    /**
      * Checks if a player has won the game.
      * @returns {boolean} `true` if a player has won, `false` otherwise.
      */
-    const isWin = () => {
+    const hasWinner = () => {
         const board = gameBoard.getBoard()
         const winningCombinations = [
             [0, 1, 2], // 1st row
@@ -123,7 +125,7 @@ const gameLogic = (() => {
      * @param {string} message - The result message to display.
      */
     const endGame = message => {
-        gameEnded = true
+        isGameOver = true
         displayController.displayResult(message)
     }
 
@@ -133,7 +135,7 @@ const gameLogic = (() => {
     const resetGame = () => {
         gameBoard.resetBoard()
         currentPlayerSign = 'X'
-        gameEnded = false
+        isGameOver = false
         displayController.displayBoard()
     }
 
