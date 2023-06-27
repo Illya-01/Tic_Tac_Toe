@@ -32,10 +32,16 @@ const gameBoard = (() => {
      */
     const isEmptyCell = index => board[index] === ''
 
+    /**
+     * @returns `True` if the every cell in the game board is occupied, `False` otherwise.
+     */
+    const isFullBoard = () => board.every(cell => cell !== '')
+
     return {
         getBoard,
         resetBoard,
         modifyCell,
         isEmptyCell,
+        isFullBoard,
     }
 })()

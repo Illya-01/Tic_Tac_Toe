@@ -2,12 +2,12 @@ const gameLogic = (() => {
     let currentPlayerSign = 'X'
     let scoreX = 0
     let scoreO = 0
-    let gameEnded = false
-    let mode = ''
+    let isGameEnded = false
+    let mode = 'computer'
 
     /**
      * Sets the game mode.
-     * @param {string} gameMode - The game mode ('computer', 'player').
+     * @param {string} gameMode - The game mode ('computer', 'man').
      */
     const setMode = gameMode => {
         mode = gameMode
@@ -25,26 +25,28 @@ const gameLogic = (() => {
      * @param {number} cellPosition - The position of the cell to make a move.
      */
     const makeMove = cellPosition => {
-        if (!gameEnded && gameBoard.isEmptyCell(cellPosition)) {
-            gameBoard.modifyCell(cellPosition, currentPlayerSign)
-            displayController.displayBoard()
+        if (isGameEnded || !gameBoard.isEmptyCell(cellPosition)) return
 
-            if (hasWinner()) {
-                endGame(`${currentPlayerSign} переміг!`)
-                updateScore()
-                return
-            }
-            if (checkTie()) {
-                endGame('Нічия!')
-                return
-            }
+        gameBoard.modifyCell(cellPosition, currentPlayerSign)
+        displayController.displayBoard()
 
-            switchPlayer()
+        if (hasWinner()) {
+            isGameEnded = true
+            displayController.displayResult(`${currentPlayerSign} переміг!`)
+            updateScore()
+            return
+        }
+        if (isTie()) {
+            isGameEnded = true
+            displayController.displayResult('Нічия!')
+            return
+        }
 
-            // if you play with computer, let him go next
-            if (mode === 'computer' && currentPlayerSign === 'O') {
-                makeComputerMove()
-            }
+        switchPlayer()
+
+        // if you play with computer, let him go next
+        if (mode === 'computer' && currentPlayerSign === 'O') {
+            makeComputerMove()
         }
     }
 
@@ -86,6 +88,7 @@ const gameLogic = (() => {
 
         for (let winCombo of winningCombinations) {
             const [a, b, c] = winCombo
+            // if cell is not empty and sign is the same for all cells
             if (board[a] && board[a] === board[b] && board[a] === board[c]) {
                 return true
             }
@@ -98,11 +101,13 @@ const gameLogic = (() => {
      * Checks if the game is tied (all cells are filled).
      * @returns {boolean} `true` if the game is tied, `false` otherwise.
      */
-    const checkTie = () => {
-        const board = gameBoard.getBoard()
-        return board.every(cell => cell !== '')
+    const isTie = () => {
+        return gameBoard.isFullBoard()
     }
 
+    /**
+     * Increments player score and calls function to display updated score
+     */
     const updateScore = () => {
         if (currentPlayerSign === 'X') {
             scoreX++
@@ -121,21 +126,12 @@ const gameLogic = (() => {
     }
 
     /**
-     * Ends the game and displays the result message.
-     * @param {string} message - The result message to display.
-     */
-    const endGame = message => {
-        gameEnded = true
-        displayController.displayResult(message)
-    }
-
-    /**
      * Resets the game to the initial state.
      */
     const resetGame = () => {
         gameBoard.resetBoard()
         currentPlayerSign = 'X'
-        gameEnded = false
+        isGameEnded = false
         displayController.displayBoard()
     }
 

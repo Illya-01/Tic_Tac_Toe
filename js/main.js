@@ -1,14 +1,14 @@
 const cells = document.querySelectorAll('.cell')
 const resetBtn = document.querySelector('#resetGameBtn')
 const modeCompBtn = document.querySelector('#mode-computer')
-const modeFriendBtn = document.querySelector('#mode-friend')
+const modeManBtn = document.querySelector('#mode-man')
 
 /**
  * Adds event listeners to each cell on the game board to handle cell clicks.
  */
-cells.forEach((cell, index) => {
+cells.forEach((cell, cellPosition) => {
     cell.addEventListener('click', () => {
-        gameLogic.makeMove(index)
+        gameLogic.makeMove(cellPosition)
     })
 })
 
@@ -22,8 +22,8 @@ modeCompBtn.addEventListener('click', () => {
     gameLogic.resetScore()
 })
 
-modeFriendBtn.addEventListener('click', () => {
-    gameLogic.setMode('friend')
+modeManBtn.addEventListener('click', () => {
+    gameLogic.setMode('man')
     gameLogic.resetGame()
     gameLogic.resetScore()
 })

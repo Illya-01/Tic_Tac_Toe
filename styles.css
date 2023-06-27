@@ -1,7 +1,6 @@
 * {
     padding: 0;
     margin: 0;
-    box-sizing: border-box;
 }
 
 :root {
@@ -30,7 +29,6 @@ p {
 }
 
 .gameboard {
-    width: calc(var(--cell-width) * 3);
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     margin-block: 5em;
