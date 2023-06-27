@@ -3,6 +3,10 @@ const displayController = (() => {
     const resultMessage = document.querySelector('#result')
     const scoreXElement = document.querySelector('#scoreX')
     const scoreOElement = document.querySelector('#scoreO')
+    /**
+     * get custom property color from root element
+     */
+    const winColor = getComputedStyle(document.documentElement).getPropertyValue('--win-clr')
 
     /**
      * Displays the current state of the game board on the webpage.
@@ -12,6 +16,18 @@ const displayController = (() => {
         for (let i = 0; i < cells.length; i++) {
             cells[i].textContent = board[i]
         }
+    }
+
+    /**
+     * Colors the cells of game board on the webpage.
+     * @param {Array} cellsToPaint array of cells to paint.
+     */
+    const colorBoard = cellsToPaint => {
+        cellsToPaint.map(cellPosition => (cells[cellPosition].style.backgroundColor = winColor))
+    }
+
+    const resetBoardColoring = () => {
+        cells.forEach(cell => (cell.style.backgroundColor = ''))
     }
 
     /**
@@ -53,6 +69,8 @@ const displayController = (() => {
 
     return {
         displayBoard,
+        colorBoard,
+        resetBoardColoring,
         displayUpdatedScore,
         resetScore,
         displayResult,

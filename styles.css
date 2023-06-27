@@ -4,8 +4,9 @@
 }
 
 :root {
-    --orange: hsl(42, 86%, 63%);
-    --bg-dark: hsl(209, 86%, 25%);
+    --orange: #ffc300;
+    --bg-dark: #003566;
+    --win-clr: #001d3d;
     --cell-width: 6rem;
 }
 

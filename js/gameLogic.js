@@ -4,6 +4,7 @@ const gameLogic = (() => {
     let scoreO = 0
     let isGameEnded = false
     let mode = 'computer'
+    let winningCombo = []
 
     /**
      * Sets the game mode.
@@ -32,6 +33,7 @@ const gameLogic = (() => {
 
         if (hasWinner()) {
             isGameEnded = true
+            displayController.colorBoard(winningCombo)
             displayController.displayResult(`${currentPlayerSign} переміг!`)
             updateScore()
             return
@@ -90,6 +92,7 @@ const gameLogic = (() => {
             const [a, b, c] = winCombo
             // if cell is not empty and sign is the same for all cells
             if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+                winningCombo = winCombo
                 return true
             }
         }

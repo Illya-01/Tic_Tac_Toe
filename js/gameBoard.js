@@ -12,6 +12,7 @@ const gameBoard = (() => {
      */
     const resetBoard = () => {
         board = ['', '', '', '', '', '', '', '', '']
+        displayController.resetBoardColoring()
     }
 
     /**
