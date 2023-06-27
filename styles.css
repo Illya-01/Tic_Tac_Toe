@@ -5,13 +5,13 @@
 }
 
 :root {
-    --orange: hsl(42, 86%, 63%);
-    --bg-dark: hsl(209, 86%, 25%);
+    --main-clr: #ffc300;
+    --bg-dark: #003566;
     --cell-width: 6rem;
 }
 
 body {
-    color: var(--orange);
+    color: var(--main-clr);
     background-color: var(--bg-dark);
     font-family: 'Finger Paint', cursive;
     /* center everything */
@@ -27,6 +27,34 @@ h1 {
 
 p {
     font-size: 2rem;
+}
+
+.btn {
+    display: inline-block;
+    margin-block-start: 1em;
+    padding: 0.75em 1.5em;
+    border-radius: 0.5em;
+    background-color: var(--main-clr);
+    color: hsl(0, 0%, 20%);
+    border-color: var(--main-clr);
+    font-size: 1.2rem;
+    transition: 200ms transform;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+/* style it later */
+.dropdown {
+    background-color: #f2f2f2;
+    border-radius: 4px;
+    padding: 10px;
+    width: 200px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
 }
 
 .gameboard {
@@ -70,22 +98,4 @@ p {
     position: relative;
     display: flex;
     gap: 3em;
-}
-
-.btn {
-    display: inline-block;
-    margin-block-start: 1em;
-    padding: 0.75em 1.5em;
-    border-radius: 0.5em;
-    background-color: var(--orange);
-    color: hsl(0, 0%, 20%);
-    border-color: var(--orange);
-    font-size: 1.2rem;
-    transition: 200ms transform;
-    font-weight: 600;
-    cursor: pointer;
-}
-
-.btn:hover {
-    transform: translateY(-2px);
 }

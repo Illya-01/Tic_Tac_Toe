@@ -1,9 +1,15 @@
 const gameLogic = (() => {
     let currentPlayerSign = 'X'
+    let userSign = 'O'
+    /**
+     * set computer sign opposite to user sign
+     */
+    let computerSign = userSign === 'X' ? 'O' : 'X'
+
     let scoreX = 0
     let scoreO = 0
-    let isGameOver = false
     let mode = ''
+    let isGameOver = false
 
     /**
      * Makes a move on the game board.
@@ -26,11 +32,6 @@ const gameLogic = (() => {
         }
 
         switchPlayer()
-
-        // if in computer mode, let computer move next
-        if (mode === 'computer' && currentPlayerSign === 'O') {
-            makeComputerMove()
-        }
     }
 
     /**
@@ -47,8 +48,8 @@ const gameLogic = (() => {
 
         if (emptyCells.length > 0) {
             const randomIndex = Math.floor(Math.random() * emptyCells.length)
-            const cellPosition = emptyCells[randomIndex]
-            makeMove(cellPosition)
+            const emptyCellPosition = emptyCells[randomIndex]
+            makeMove(emptyCellPosition)
         }
     }
 
@@ -60,11 +61,19 @@ const gameLogic = (() => {
         mode = gameMode
     }
 
+    // ! build it
+    // const playFirstMove = () => {}
+
     /**
      * Switches the current player.
      */
     const switchPlayer = () => {
         currentPlayerSign = currentPlayerSign === 'X' ? 'O' : 'X'
+
+        // if in computer mode, let computer move next
+        if (mode === 'computer' && currentPlayerSign === 'O') {
+            makeComputerMove()
+        }
     }
 
     /**
