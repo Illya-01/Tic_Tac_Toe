@@ -18,10 +18,6 @@ const gameLogic = (() => {
      */
     const switchPlayer = () => {
         currentPlayerSign = currentPlayerSign === 'X' ? 'O' : 'X'
-
-        if (mode === 'computer' && currentPlayerSign === 'O') {
-            makeComputerMove()
-        }
     }
 
     /**
@@ -33,7 +29,7 @@ const gameLogic = (() => {
             gameBoard.modifyCell(cellPosition, currentPlayerSign)
             displayController.displayBoard()
 
-            if (isWin()) {
+            if (hasWinner()) {
                 endGame(`${currentPlayerSign} переміг!`)
                 updateScore()
                 return
@@ -42,7 +38,13 @@ const gameLogic = (() => {
                 endGame('Нічия!')
                 return
             }
+
             switchPlayer()
+
+            // if you play with computer, let him go next
+            if (mode === 'computer' && currentPlayerSign === 'O') {
+                makeComputerMove()
+            }
         }
     }
 
@@ -69,7 +71,7 @@ const gameLogic = (() => {
      * Checks if a player has won the game.
      * @returns {boolean} `true` if a player has won, `false` otherwise.
      */
-    const isWin = () => {
+    const hasWinner = () => {
         const board = gameBoard.getBoard()
         const winningCombinations = [
             [0, 1, 2], // 1st row
