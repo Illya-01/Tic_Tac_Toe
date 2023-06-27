@@ -8,7 +8,7 @@ const gameBoard = (() => {
     const getBoard = () => board
 
     /**
-     * Resets the game board by clearing all cells.
+     * Resets the game board by clearing all cells and gets rig of coloring.
      */
     const resetBoard = () => {
         board = ['', '', '', '', '', '', '', '', '']

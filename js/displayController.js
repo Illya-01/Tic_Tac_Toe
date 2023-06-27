@@ -26,6 +26,9 @@ const displayController = (() => {
         cellsToPaint.map(cellPosition => (cells[cellPosition].style.backgroundColor = winColor))
     }
 
+    /**
+     * Resets the color of the game board
+     */
     const resetBoardColoring = () => {
         cells.forEach(cell => (cell.style.backgroundColor = ''))
     }
