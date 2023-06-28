@@ -1,4 +1,6 @@
-const displayController = (() => {
+import { gameBoard } from './gameBoard.js'
+
+export const displayController = (() => {
     const cells = document.querySelectorAll('.cell')
     const resultMessage = document.querySelector('#result')
     const scoreXElement = document.querySelector('#scoreX')

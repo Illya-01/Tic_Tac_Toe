@@ -1,9 +1,12 @@
-const gameLogic = (() => {
+import { gameBoard } from './gameBoard.js'
+import { displayController } from './displayController.js'
+
+export const gameLogic = (() => {
     let currentPlayerSign = 'X'
     let scoreX = 0
     let scoreO = 0
     let isGameEnded = false
-    let mode = 'computer'
+    let mode = ''
     let winningCombo = []
 
     /**

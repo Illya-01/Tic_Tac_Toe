@@ -1,4 +1,6 @@
-const gameBoard = (() => {
+import { displayController } from './displayController.js'
+
+export const gameBoard = (() => {
     let board = ['', '', '', '', '', '', '', '', '']
 
     /**
